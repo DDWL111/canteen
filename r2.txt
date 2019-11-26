@@ -1,0 +1,33 @@
+public class TSG extends JFrame{
+	static String driverName="com.microsoft.sqlserver.jdbc.SQLServerDriver";
+	static String dbUrl="jdbc:sqlserver://localhost:1433;DatabaseName=TuShuGuang";
+	static String us="sa";
+	static String pw="zxc150587";
+public  static Connection getConn(String dbDriver,String dbUrl,String us,String pw){
+	       Connection conn=null;
+	      try {
+			 Class.forName(dbDriver);
+			 conn=DriverManager.getConnection(dbUrl,us,pw);
+		} catch (ClassNotFoundException  e) {
+			e.printStackTrace();
+		}catch(SQLException e1){
+			e1.printStackTrace();
+		}
+		return conn;
+}
+public static int peoplelog_in(String name,String password1) throws SQLException{//Ñ§ÉúµÇÂ½
+		 Connection conn=getConn(driverName, dbUrl, us, pw);
+		 Statement sta=conn.createStatement();
+		 ResultSet rs=sta.executeQuery("select * from people");
+		 while(rs.next()){
+			 String account=rs.getString("account");
+			 String password=rs.getString("password");
+			 String type=rs.getString("type");
+			if(type.equals("student")) {
+				if(account.equals(name)&&password.equals(password1)) {
+					return 1;
+				}
+			}
+		 }
+		 return 0;
+	}
