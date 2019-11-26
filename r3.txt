@@ -1,0 +1,16 @@
+public static void bookUpdate(String name,String author,String press,String ISBN,String pubDate,String Borrow,int id)throws SQLException{//Êé¼®½èÊé×´Ì¬¸úÐÂ
+	String bookUpSql="update book set name=?,author=?,press=?,ISBN=?,pubDate=?,Borrow=? where id=?";
+	Connection conn=getConn(driverName, dbUrl, us, pw);
+	PreparedStatement psta=conn.prepareStatement(bookUpSql);
+	psta.setString(1, name);
+	psta.setString(2, author);
+	psta.setString(3, press);
+	psta.setString(4, ISBN);
+	psta.setString(5, pubDate);
+	psta.setString(6, Borrow);
+	psta.setInt(7, id);
+	psta.addBatch();
+	psta.executeBatch();
+	psta.close();
+	conn.close();
+}
