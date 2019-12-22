@@ -1,0 +1,16 @@
+static String driverName="com.microsoft.sqlserver.jdbc.SQLServerDriver";
+	static String dbUrl="jdbc:sqlserver://localhost:1433;DatabaseName=ST";
+	static String us="sa";
+	static String pw="123456";
+public  static Connection getConn(String dbDriver,String dbUrl,String us,String pw){
+	       Connection conn=null;
+	      try {
+			 Class.forName(dbDriver);
+			 conn=DriverManager.getConnection(dbUrl,us,pw);
+		} catch (ClassNotFoundException  e) {
+			e.printStackTrace();
+		}catch(SQLException e1){
+			e1.printStackTrace();
+		}
+		return conn;
+}
