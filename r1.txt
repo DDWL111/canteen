@@ -1,0 +1,55 @@
+PreparedStatement ps = null;
+	    Connection ct = null;
+	    ResultSet rs = null;
+	    Vector rowData,columnNames;
+	       columnNames=new Vector();
+	        设置列名
+	       columnNames.add(id);
+	       columnNames.add(菜品名);
+	       columnNames.add(价格);
+	       columnNames.add(剩余数量);;
+	        rowData = new Vector();
+	        try {
+	            Connection conn=getConn(driverName, dbUrl, us, pw);
+	       	 	Statement sta=conn.createStatement();
+	       	 	ResultSet rs1=sta.executeQuery(select  from people);
+	       	 	while(rs1.next()){
+	       	 			Vector hang = new Vector();
+	       	 			hang.add(rs1.getInt(1));
+	       	 			hang.add(rs1.getString(2));
+	       	 			hang.add(rs1.getString(3));
+	       	 			hang.add(rs1.getString(4));
+	       	 			rowData.add(hang);
+	       	 		}
+	        }catch (Exception e) {
+	            e.printStackTrace();
+	        }finally {
+	            try {
+	                if (rs!= null) rs.close();
+	                if(ps!=null) ps.close();
+	                if(ct!=null) ct.close();
+	            }catch (Exception e) {
+	                e.printStackTrace();
+	            }
+	        }
+	        jt = new JTable(rowData,columnNames);
+	        jsp = new JScrollPane(jt);
+	        jp1=new JPanel();
+	        jsp.setSize(800, 400);
+	        jp1=new JPanel();
+	        jp1.setLayout(null);
+	        jp1.setSize(800, 200);
+	        jp1.setLocation(0,400);
+	        jp1.add(t2);
+	        jp1.add(t1);
+	        jp1.add(lb4);
+	        jp1.add(lb3);
+	        jp1.add(lb2);
+	        jp1.add(lb1);
+	        jp1.add(b4);
+	        jp1.add(b3);
+	        jp1.add(b2);
+	        jp1.add(b1);
+	        jf1.add(jp1);
+	        jf1.add(jsp);
+}
